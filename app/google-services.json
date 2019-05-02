@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "244159150787",
+    "firebase_url": "https://hygeia-1bc89.firebaseio.com",
+    "project_id": "hygeia-1bc89",
+    "storage_bucket": "hygeia-1bc89.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:244159150787:android:4eeb2f497a8480bd",
+        "android_client_info": {
+          "package_name": "app.project.com.hygieia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "244159150787-uupu147runm02icfpqptgk1ok2ev5g7v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.project.com.hygieia",
+            "certificate_hash": "6d502944b0629ad17111914807e833bfd98191cc"
+          }
+        },
+        {
+          "client_id": "244159150787-hovnf16dnlob0fefronkjvfm4bq9e7nf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbSgqUjgy9TmmnhTiMVsdmCRPVs3ZoP5g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "244159150787-hovnf16dnlob0fefronkjvfm4bq9e7nf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
