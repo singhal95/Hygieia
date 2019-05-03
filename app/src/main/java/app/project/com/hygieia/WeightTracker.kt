@@ -24,6 +24,7 @@ import java.util.*
 class WeightTracker (context: Context): Fragment() {
 
 
+    private lateinit var helo:String
     private lateinit var database: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
     private lateinit var weight:EditText
