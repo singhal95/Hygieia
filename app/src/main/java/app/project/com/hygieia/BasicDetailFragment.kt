@@ -66,22 +66,7 @@ class BasicDetailFragment(mainScreen: OnTouchGoal2,context: Context) : Fragment(
         name=view.findViewById<EditText>(R.id.name)
         database= mcontext.getSharedPreferences("Database", Context.MODE_PRIVATE)
         editor = database.edit()
-        birthday.setOnClickListener {
-            val c = Calendar.getInstance()
-            val year = c.get(Calendar.YEAR)
-            val month = c.get(Calendar.MONTH)
-            val day = c.get(Calendar.DAY_OF_MONTH)
 
-
-            val dpd = DatePickerDialog(activity, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-
-                // Display Selected date in textbox
-                var date= dayOfMonth.toString() + "/"+monthOfYear.toString()+"/"+year.toString()
-                birthday.setText(date)
-            }, year, month, day)
-
-            dpd.show()
-        }
 
         NEXT.setOnClickListener(){
             var id=radioGroup.checkedRadioButtonId

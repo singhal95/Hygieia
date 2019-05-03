@@ -63,7 +63,7 @@ class FrontScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_camera -> {
+            R.id.hydration -> {
                 // Handle the camera action
                 val hydra=Hydraaation(this)
                 fragmentManager = getSupportFragmentManager()
@@ -72,9 +72,12 @@ class FrontScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                 fragmentTransaction.commit()
             }
 
-            R.id.profileedit ->{
-
-
+            R.id.Progress->{
+                val Progress=WeightTracker(this)
+                fragmentManager = getSupportFragmentManager()
+                fragmentTransaction=fragmentManager.beginTransaction()
+                fragmentTransaction.add(R.id.fragment,Progress)
+                fragmentTransaction.commit()
             }
 
         }

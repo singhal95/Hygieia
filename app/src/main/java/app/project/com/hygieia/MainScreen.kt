@@ -1,5 +1,6 @@
 package app.project.com.hygieia
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -27,6 +28,7 @@ class MainScreen  : AppCompatActivity(),GoalFragment.OnTouchGoal,ActivityLevelFr
     private lateinit var database: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
     private lateinit var  goal:GoalFragment
+    private var calorie:Float = 0.0f
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_screen)
@@ -76,6 +78,10 @@ class MainScreen  : AppCompatActivity(),GoalFragment.OnTouchGoal,ActivityLevelFr
     }
 
     override fun touchgoal3() {
+        val progressDialog = ProgressDialog(this@MainScreen)
+        progressDialog.isIndeterminate = true
+        progressDialog.setMessage("Calculating ...")
+        progressDialog.show()
         var myRef = firebasedatabase.getReference("Users")
         Log.i("TAG",myRef.toString())
         val email=database.getString("email","TEST")
@@ -88,8 +94,55 @@ class MainScreen  : AppCompatActivity(),GoalFragment.OnTouchGoal,ActivityLevelFr
         val birthday=database.getString("birthday","TEST")
         val height=database.getString("height","TEST")
         val weight=database.getString("weight","TEST")
-        val user=User(email,userid,goal,active,gender,name,location,birthday,height,weight)
+        val weightinpounds=weight.toFloat()*2.20462
+        val heightininches=height.toFloat()*0.393701
+        val ageinyears=birthday.toInt()
+        if(gender.equals("Male")){
+            calorie= (66+(6.23*weightinpounds)+(12.7*heightininches)-(6.8*ageinyears)).toFloat()
+            if(active.equals("Lightly Active")){
+                calorie= (calorie*1.2).toFloat()
+
+            }
+            else if(active.equals("Active")){
+                calorie= (calorie*1.375).toFloat()
+            }
+            else if(active.equals("Very Active")){
+                calorie= (calorie*1.725).toFloat()
+            }
+
+            if(goal.equals("Lose weight")){
+                calorie=calorie-500
+            }
+            else if(goal.equals("Gain Weight")){
+                calorie=calorie+500
+            }
+        }
+        else{
+            calorie= (155+(4.35*weightinpounds)+(4.7*heightininches)-(14.7*ageinyears)).toFloat()
+            if(active.equals("Lightly Active")){
+                calorie= (calorie*1.2).toFloat()
+
+            }
+            else if(active.equals("Active")){
+                calorie= (calorie*1.375).toFloat()
+            }
+            else if(active.equals("Very Active")){
+                calorie= (calorie*1.725).toFloat()
+            }
+
+            if(goal.equals("Lose weight")){
+                calorie=calorie-500
+            }
+            else if(goal.equals("Gain Weight")){
+                calorie=calorie+500
+            }
+        }
+        editor.putString("calorie",calorie.toString())
+        editor.commit()
+        val user=User(email,userid,goal,active,gender,name,location,birthday,height,weight,calorie.toString(),"TEST")
         myRef.child(userid).setValue(user).addOnSuccessListener {
+            progressDialog.dismiss()
+
             val intent = Intent(this@MainScreen, FrontScreen::class.java)
             startActivity(intent)
             finish()
