@@ -139,7 +139,7 @@ class MainScreen  : AppCompatActivity(),GoalFragment.OnTouchGoal,ActivityLevelFr
         }
         editor.putString("calorie",calorie.toString())
         editor.commit()
-        val user=User(email,userid,goal,active,gender,name,location,birthday,height,weight,calorie.toString(),"TEST")
+        val user=User(email,userid,goal,active,gender,name,location,birthday,height,weight,calorie.toString(),"TEST",weight,weight)
         myRef.child(userid).setValue(user).addOnSuccessListener {
             progressDialog.dismiss()
 
