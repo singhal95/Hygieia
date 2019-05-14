@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        // Initialize Firebase Auth
          auth = FirebaseAuth.getInstance()
         _emailText = findViewById<EditText>(R.id.input_email)
         _passwordText = findViewById<EditText>(R.id.input_password)

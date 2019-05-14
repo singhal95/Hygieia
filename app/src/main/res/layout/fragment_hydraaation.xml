@@ -5,9 +5,21 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="16dp"
   >
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/activity_main1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        >
 
     <TextView
         android:id="@+id/tv_instructions"
@@ -86,22 +98,8 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".25">
+    </LinearLayout>
 
-        <Button
-            android:id="@+id/onOffSwitch"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="81dp"
-            android:layout_marginStart="81dp"
-            android:background="#ef9a9a"
-            android:text="Stop Reminding me"
-            android:textColor="@android:color/white" />
 
-    </RelativeLayout>
+    </ScrollView>
 </LinearLayout>

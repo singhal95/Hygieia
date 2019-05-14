@@ -78,14 +78,14 @@ class HomeFragment(context: Context,mainScreen: OnTouchAdd) : Fragment() {
         })
 
         BREAKFASTADD.setOnClickListener {
-          search.ontouchadd()
+          search.ontouchadd(1)
         }
         LUNCHADD.setOnClickListener {
-          search.ontouchadd()
+          search.ontouchadd(2)
 
         }
         DINNERADD.setOnClickListener {
-            search.ontouchadd()
+            search.ontouchadd(3)
         }
 
         return view
@@ -93,7 +93,7 @@ class HomeFragment(context: Context,mainScreen: OnTouchAdd) : Fragment() {
 
 
     interface OnTouchAdd{
-        fun ontouchadd()
+        fun ontouchadd(meal:Int)
     }
 
 

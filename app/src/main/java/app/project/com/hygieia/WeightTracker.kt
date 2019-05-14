@@ -84,7 +84,7 @@ class WeightTracker (context: Context): Fragment() {
             val userid=database.getString("userid" ,"TEST")
             var myRef = firebasedatabase.getReference("Users")
             var weighttrack=Weight(weightstring)
-       myRef.child(userid).child("weighttracker").child(monthofyear.toString()).setValue(weighttrack).addOnSuccessListener {
+            myRef.child(userid).child("weighttracker").child(monthofyear.toString()).setValue(weighttrack).addOnSuccessListener {
                 progressDialog.dismiss()
                 Toast.makeText(mcontext,"Weight is Added",Toast.LENGTH_SHORT).show()
 

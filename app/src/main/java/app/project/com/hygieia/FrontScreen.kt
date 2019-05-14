@@ -23,10 +23,7 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_front_screen.*
 import kotlinx.android.synthetic.main.app_bar_front_screen.*
 
-class FrontScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,HomeFragment.OnTouchAdd {
-
-
-
+class FrontScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,HomeFragment.OnTouchAdd,SearchFoodFragment.OnBarcodeLogoTouch {
 
 
 
@@ -111,6 +108,7 @@ class FrontScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                 fragmentTransaction.commit()
             }
 
+
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
@@ -118,8 +116,16 @@ class FrontScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     }
 
 
-    override fun ontouchadd() {
-        var fragment=SearchFoodFragment()
+    override fun ontouchadd(meal:Int) {
+
+        var fragment=SearchFoodFragment(applicationContext,this)
+        fragmentManager = getSupportFragmentManager()
+        fragmentTransaction=fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragment,fragment)
+        fragmentTransaction.commit()
+    }
+    override fun ontouch() {
+        var fragment=BarcodeScanner()
         fragmentManager = getSupportFragmentManager()
         fragmentTransaction=fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragment,fragment)
