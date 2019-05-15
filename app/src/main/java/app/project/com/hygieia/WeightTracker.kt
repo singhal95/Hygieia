@@ -28,7 +28,7 @@ class WeightTracker (context: Context): Fragment() {
     private lateinit var database: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
     private lateinit var weight:EditText
-    private lateinit var date:TextView
+    private lateinit var date1:TextView
     private lateinit var Submit:Button
     lateinit var mcontext:Context
     private lateinit var firebasedatabase: FirebaseDatabase
@@ -52,12 +52,12 @@ class WeightTracker (context: Context): Fragment() {
        var view=inflater.inflate(R.layout.fragment_weight_tracker, container, false)
         firebasedatabase= FirebaseDatabase.getInstance()
         weight=view.findViewById<EditText>(R.id.weight)
-        date=view.findViewById<TextView>(R.id.date)
+        date1=view.findViewById<TextView>(R.id.date)
         Submit=view.findViewById<Button>(R.id.submit)
         database= mcontext.getSharedPreferences("Database", Context.MODE_PRIVATE)
         editor = database.edit()
 
-        date.setOnClickListener {
+        date1.setOnClickListener {
             val c = Calendar.getInstance()
             val year = c.get(Calendar.YEAR)
             var month = c.get(Calendar.MONTH)
@@ -68,6 +68,7 @@ class WeightTracker (context: Context): Fragment() {
 
                 // Display Selected date in textbox
                 date.setText(dayOfMonth.toString()+"/"+monthOfYear.toString()+"/"+year)
+
                 monthofyear=monthOfYear+1
             }, year, month, day)
 
@@ -80,11 +81,16 @@ class WeightTracker (context: Context): Fragment() {
             progressDialog.show()
 
             var weightstring=weight.text.toString()
-            var datestring=date.text.toString()
             val userid=database.getString("userid" ,"TEST")
             var myRef = firebasedatabase.getReference("Users")
             var weighttrack=Weight(weightstring)
-            myRef.child(userid).child("weighttracker").child(monthofyear.toString()).setValue(weighttrack).addOnSuccessListener {
+            var datestring=date.text.toString()
+            val c = Calendar.getInstance()
+            val year = c.get(Calendar.YEAR)
+            var month = c.get(Calendar.MONTH)
+            val day = c.get(Calendar.DAY_OF_MONTH)
+            val date=day.toString()+"-"+(month+1).toString()+"-"+year
+            myRef.child(userid).child("weighttracker").child(date).setValue(weightstring).addOnSuccessListener {
                 progressDialog.dismiss()
                 Toast.makeText(mcontext,"Weight is Added",Toast.LENGTH_SHORT).show()
 

@@ -76,6 +76,7 @@ class SignupActivity : AppCompatActivity() {
                         progressDialog.dismiss()
                         editor.putString("email",email)
                         editor.putString("userid",auth.uid)
+                        editor.putString("password",password)
                         editor.putInt("waterintake",0)
                         editor.commit()
                         onSignupSuccess()

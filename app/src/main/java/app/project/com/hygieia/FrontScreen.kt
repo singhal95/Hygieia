@@ -1,6 +1,7 @@
 package app.project.com.hygieia
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
@@ -23,13 +24,13 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_front_screen.*
 import kotlinx.android.synthetic.main.app_bar_front_screen.*
 
-class FrontScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,HomeFragment.OnTouchAdd,SearchFoodFragment.OnBarcodeLogoTouch {
+class FrontScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,HomeFragment.OnTouchAdd,SearchFoodFragment.OnBarcodeLogoTouch,settings.OnTouchclick,BarcodeScanner.OnScanBarcode {
 
 
 
     private lateinit var fragmentManager: FragmentManager
     private lateinit var fragmentTransaction: FragmentTransaction
-
+    private var meal:Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,6 +76,21 @@ class FrontScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                 fragmentTransaction.commit()
             }
 
+            R.id.Macros->{
+                var fragment=Macros(applicationContext)
+                fragmentManager = getSupportFragmentManager()
+                fragmentTransaction=fragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.fragment,fragment)
+                fragmentTransaction.commit()
+            }
+
+            R.id.steps->{
+                var fragment=StepCounter(applicationContext)
+                fragmentManager = getSupportFragmentManager()
+                fragmentTransaction=fragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.fragment,fragment)
+                fragmentTransaction.commit()
+            }
 
             R.id.hydration -> {
                 // Handle the camera action
@@ -94,7 +110,7 @@ class FrontScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             }
 
             R.id.settings->{
-                var fragment=settings(applicationContext)
+                var fragment=settings(applicationContext,this)
                 fragmentManager = getSupportFragmentManager()
                 fragmentTransaction=fragmentManager.beginTransaction()
                 fragmentTransaction.replace(R.id.fragment,fragment)
@@ -118,14 +134,29 @@ class FrontScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelected
 
     override fun ontouchadd(meal:Int) {
 
-        var fragment=SearchFoodFragment(applicationContext,this)
+        this.meal=meal
+        var fragment=SearchFoodFragment(applicationContext,this,meal,0)
         fragmentManager = getSupportFragmentManager()
         fragmentTransaction=fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragment,fragment)
         fragmentTransaction.commit()
     }
     override fun ontouch() {
-        var fragment=BarcodeScanner()
+        var fragment=BarcodeScanner(applicationContext,this)
+        fragmentManager = getSupportFragmentManager()
+        fragmentTransaction=fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragment,fragment)
+        fragmentTransaction.commit()
+    }
+    override fun ontouchclick() {
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    override fun scan() {
+        this.meal=meal
+        var fragment=SearchFoodFragment(applicationContext,this,meal,1)
         fragmentManager = getSupportFragmentManager()
         fragmentTransaction=fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragment,fragment)

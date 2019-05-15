@@ -6,6 +6,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="app.project.com.hygieia.BarcodeScanner">
 
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp">
     <fragment
         android:id="@+id/barcode_fragment"
         android:name="info.androidhive.barcode.BarcodeReader"
@@ -24,5 +29,13 @@
         app:line_width="4"
         app:square_height="200"
         app:square_width="200" />
+    </FrameLayout>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:id="@+id/next"/>
 
 </LinearLayout>

@@ -1,7 +1,9 @@
 package app.project.com.hygieia
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -20,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var _passwordText:EditText
     private lateinit var _loginButton: Button
     private lateinit var _signupLink: TextView
+    private lateinit var database: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +34,8 @@ class MainActivity : AppCompatActivity() {
         _passwordText = findViewById<EditText>(R.id.input_password)
          _loginButton=findViewById<Button>(R.id.btn_login)
          _signupLink=findViewById<TextView>(R.id.link_signup)
+        database=getSharedPreferences("Database", Context.MODE_PRIVATE)
+        editor = database.edit()
          _signupLink.setOnClickListener {
             // Start the Signup activity
             val intent = Intent(applicationContext, SignupActivity::class.java)
@@ -73,6 +79,10 @@ class MainActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in User's information
                         val user = auth.getCurrentUser()
+                        editor.putString("email",email)
+                        editor.putString("userid",auth.uid)
+                        editor.putString("password",password)
+                        editor.commit()
                         onLoginSuccess()
                         progressDialog.dismiss()
 
