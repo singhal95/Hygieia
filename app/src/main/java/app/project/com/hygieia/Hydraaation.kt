@@ -9,10 +9,18 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.jjoe64.graphview.GraphView
+import com.jjoe64.graphview.series.DataPoint
+import com.jjoe64.graphview.series.LineGraphSeries
+import lecho.lib.hellocharts.model.PointValue
 import java.util.*
 
 
@@ -26,6 +34,14 @@ class Hydraaation (context:Context): Fragment() {
     private lateinit var database: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
     private lateinit var firebasedatabase: FirebaseDatabase
+    private lateinit var button: Button
+    private lateinit var graph: GraphView
+    private lateinit var graph1: GraphView
+    private lateinit var graph2: GraphView
+    private lateinit var graph3: GraphView
+    private lateinit var datalist:ArrayList<String>
+    private lateinit var countlist:ArrayList<Int>
+
 
     init {
     context1=context
@@ -54,11 +70,93 @@ class Hydraaation (context:Context): Fragment() {
         editor = database.edit()
         var count=database.getInt("waterintake",0)
         mWaterCountDisplay.setText((count).toString())
+        button=view.findViewById<Button>(R.id.showchart)
+        graph=view.findViewById<GraphView>(R.id.graph1)
+        graph1=view.findViewById<GraphView>(R.id.graph2)
+        graph2=view.findViewById<GraphView>(R.id.graph3)
+        graph3=view.findViewById<GraphView>(R.id.graph4)
 
 
          BUTTON.setOnClickListener(){
             updateWaterCount()
         }
+
+        datalist= ArrayList()
+        countlist= ArrayList()
+        var myRef=firebasedatabase.getReference("Users")
+        var myref2= myRef.child(database.getString("userid","TEST")).child("StepCounter")
+        myref2.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var datasnapshot1= dataSnapshot.children
+                for (data in datasnapshot1){
+                    datalist.add(data.key.toString())
+                    if(countlist.size==0) {
+                        var value=data.getValue(Int::class.java)
+                        var exactvount = value
+                        countlist.add(exactvount!!)
+
+
+
+                    }
+                    else{
+                        var value=data.getValue(Int::class.java)
+                        var exactvount = value!! - countlist.get(countlist.size-1)
+
+                        countlist.add(exactvount)
+                    }
+                }
+                var entries=ArrayList<PointValue>()
+                var i=0;
+                for(data in countlist) {
+
+                    entries.add(PointValue(i.toFloat(), data.toFloat()))
+
+                    i++
+                }
+
+
+                var series = LineGraphSeries(arrayOf
+                (DataPoint(0.0, 1.0),
+                        DataPoint(1.0, 5.0),
+                        DataPoint(2.0, 3.0),
+                        DataPoint(3.0, 2.0),
+                        DataPoint(4.0, 5.0),
+                        DataPoint(5.0, 3.0),
+                        DataPoint(6.0, 2.0),
+                        DataPoint(7.0, 5.0),
+                        DataPoint(8.0, 3.0),
+                        DataPoint(9.0, 2.0),
+                        DataPoint(10.0, 6.0)))
+                graph.addSeries(series)
+
+
+
+                var k=countlist.get(countlist.size-1).toDouble()
+                val series2= LineGraphSeries(arrayOf(
+                        DataPoint(0.0,0.0),
+                        DataPoint(6.0, k),
+                        DataPoint(12.0,0.0)
+
+                ))
+                graph2.addSeries(series2)
+
+                var k1=countlist.get(countlist.size-1).toDouble()
+                val series3= LineGraphSeries(arrayOf(
+                        DataPoint(0.0,0.0),
+                        DataPoint(1.0, k),
+                        DataPoint(2.0,0.0)
+
+                ))
+                graph3.addSeries(series2)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+
+
+
+
 
         return view
     }
