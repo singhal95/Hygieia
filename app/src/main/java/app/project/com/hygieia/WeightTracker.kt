@@ -154,7 +154,6 @@ class WeightTracker (context: Context): Fragment() {
                         i++
                     }
 
-
                     var series = LineGraphSeries(arrayOf
                     (DataPoint(0.0, 1.0),
                             DataPoint(1.0, 5.0),
@@ -169,10 +168,15 @@ class WeightTracker (context: Context): Fragment() {
                             DataPoint(10.0, 6.0)))
                     graph.addSeries(series)
 
-
-
+                    var series4 = LineGraphSeries(arrayOf
+                    (DataPoint(0.0, 1.0),
+                            DataPoint(2.0, 2.0),
+                            DataPoint(4.0, 3.0),
+                            DataPoint(6.0, 2.0)
+                    ))
+                    graph1.addSeries(series4)
                     var k=countlist.get(countlist.size-1).toDouble()
-                    val series2= LineGraphSeries(arrayOf(
+                    val series2=LineGraphSeries(arrayOf(
                             DataPoint(0.0,0.0),
                             DataPoint(6.0, k),
                             DataPoint(12.0,0.0)
@@ -181,7 +185,7 @@ class WeightTracker (context: Context): Fragment() {
                     graph2.addSeries(series2)
 
                     var k1=countlist.get(countlist.size-1).toDouble()
-                    val series3= LineGraphSeries(arrayOf(
+                    val series3=LineGraphSeries(arrayOf(
                             DataPoint(0.0,0.0),
                             DataPoint(1.0, k),
                             DataPoint(2.0,0.0)

@@ -119,7 +119,6 @@ class StepCounter (context:Context): Fragment(), SensorEventListener {
                         i++
                     }
 
-
                     var series = LineGraphSeries(arrayOf
                     (DataPoint(0.0, 1.0),
                             DataPoint(1.0, 5.0),
@@ -134,8 +133,13 @@ class StepCounter (context:Context): Fragment(), SensorEventListener {
                             DataPoint(10.0, 6.0)))
                     graph.addSeries(series)
 
-
-
+                    var series4 = LineGraphSeries(arrayOf
+                    (DataPoint(0.0, 1.0),
+                            DataPoint(2.0, 2.0),
+                            DataPoint(4.0, 3.0),
+                            DataPoint(6.0, 2.0)
+                    ))
+                    graph1.addSeries(series4)
                     var k=countlist.get(countlist.size-1).toDouble()
                     val series2=LineGraphSeries(arrayOf(
                             DataPoint(0.0,0.0),
