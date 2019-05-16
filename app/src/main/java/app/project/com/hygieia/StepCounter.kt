@@ -92,7 +92,6 @@ class StepCounter (context:Context): Fragment(), SensorEventListener {
             var myref2= myRef.child(database.getString("userid","TEST")).child("StepCounter")
             myref2.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    Log.i("nitinqwe","hello")
                    var datasnapshot1= dataSnapshot.children
                     for (data in datasnapshot1){
                         datalist.add(data.key.toString())
@@ -100,6 +99,41 @@ class StepCounter (context:Context): Fragment(), SensorEventListener {
                             var value=data.getValue(Int::class.java)
                             var exactvount = value
                             countlist.add(exactvount!!)
+                            var entries=ArrayList<PointValue>()
+                            var i=0;
+                            for(data in countlist) {
+
+                                entries.add(PointValue(i.toFloat(), data.toFloat()))
+
+                                i++
+                            }
+
+
+                            var series = LineGraphSeries(arrayOf
+                            (DataPoint(0.0, 1.0),
+                                    DataPoint(1.0, 5.0),
+                                    DataPoint(2.0, 3.0),
+                                    DataPoint(3.0, 2.0),
+                                    DataPoint(4.0, 5.0),
+                                    DataPoint(5.0, 3.0),
+                                    DataPoint(6.0, 2.0),
+                                    DataPoint(7.0, 5.0),
+                                    DataPoint(8.0, 3.0),
+                                    DataPoint(9.0, 2.0),
+                                    DataPoint(10.0, 6.0)))
+                            graph.addSeries(series)
+
+
+
+                            var k=countlist.get(countlist.size-1).toDouble()
+                            val series2=LineGraphSeries(arrayOf(
+                                    DataPoint(0.0,0.0),
+                                    DataPoint(6.0, k),
+                                    DataPoint(12.0,0.0)
+
+                            ))
+                            graph2.addSeries(series2)
+
 
                         }
                         else{
@@ -114,40 +148,6 @@ class StepCounter (context:Context): Fragment(), SensorEventListener {
                 }
             })
 
-            var entries=ArrayList<PointValue>()
-            var i=0;
-            for(data in countlist) {
-
-                entries.add(PointValue(i.toFloat(), data.toFloat()))
-
-                i++
-            }
-
-
-            var series = LineGraphSeries(arrayOf
-            (DataPoint(0.0, 1.0),
-                    DataPoint(1.0, 5.0),
-                    DataPoint(2.0, 3.0),
-                    DataPoint(3.0, 2.0),
-                    DataPoint(4.0, 5.0),
-                    DataPoint(5.0, 3.0),
-                    DataPoint(6.0, 2.0),
-                    DataPoint(7.0, 5.0),
-                    DataPoint(8.0, 3.0),
-                    DataPoint(9.0, 2.0),
-                    DataPoint(10.0, 6.0)))
-            graph.addSeries(series)
-
-
-
-            var k=countlist.get(countlist.size-1).toDouble()
-            val series2=LineGraphSeries(arrayOf(
-                    DataPoint(0.0,0.0),
-                    DataPoint(6.0, k),
-                    DataPoint(12.0,0.0)
-
-            ))
-            graph2.addSeries(series2)
 
 
         }
