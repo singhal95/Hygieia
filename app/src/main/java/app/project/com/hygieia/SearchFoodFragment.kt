@@ -183,6 +183,9 @@ class SearchFoodFragment(context: Context, mainScreen: OnBarcodeLogoTouch,meal :
                         ADD_FOOD.visibility=View.VISIBLE
                         ADD_FOOD.setOnClickListener(){
                             Detailsadd.visibility=View.VISIBLE
+                            ADD_DATABASE.setOnClickListener {
+                                add()
+                            }
                         }
                     }
                 }
@@ -211,6 +214,9 @@ class SearchFoodFragment(context: Context, mainScreen: OnBarcodeLogoTouch,meal :
             ADD_FOOD.visibility=View.VISIBLE
             ADD_FOOD.setOnClickListener(){
                 Detailsadd.visibility=View.VISIBLE
+                ADD_DATABASE.setOnClickListener {
+                    add()
+                }
             }
         }
 
@@ -531,6 +537,27 @@ class SearchFoodFragment(context: Context, mainScreen: OnBarcodeLogoTouch,meal :
 
     interface OnBarcodeLogoTouch{
         fun ontouch()
+    }
+
+    fun add(){
+        var name=Edit_FOOD_NAME.text.toString()
+        var barcode= Edit_FOOD_BARCODE.text.toString().toLong()
+        var carbs=Edit_FOOD_CARB.text.toString().toLong()
+        var protein=Edit_FOOD_PROTEIN.text.toString().toLong()
+        var fat=Edit_FOOD_FAT.text.toString().toLong()
+        var calories=Edit_Food_CALORIES.text.toString().toLong()
+        var food1=Food(barcode,calories,carbs,fat,protein)
+        val myRef = firebasedatabase.getReference("Food")
+        myRef.child(name).setValue(food1).addOnSuccessListener {
+            Toast.makeText(mcontext,"Calories Remaining Is Updated",Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener {
+            Toast.makeText(mcontext,"Please Chcek Your Internet Connection", Toast.LENGTH_SHORT).show()
+        }
+
+
+
+
+
     }
 
 

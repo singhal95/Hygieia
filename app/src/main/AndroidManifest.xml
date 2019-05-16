@@ -23,7 +23,7 @@
         <activity android:name="app.project.com.hygieia.MainScreen" />
         <activity
             android:name="app.project.com.hygieia.FrontScreen"
-            android:label="@string/title_activity_front_screen"
+            android:label="Hygeia"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
