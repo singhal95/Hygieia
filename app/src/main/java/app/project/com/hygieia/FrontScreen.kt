@@ -57,7 +57,6 @@ class FrontScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
         }
     }
 
@@ -92,6 +91,13 @@ class FrontScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                 fragmentTransaction.commit()
             }
 
+            R.id.nutrition->{
+                var fragment=Nutrition(applicationContext)
+                fragmentManager = getSupportFragmentManager()
+                fragmentTransaction=fragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.fragment,fragment)
+                fragmentTransaction.commit()
+            }
             R.id.hydration -> {
                 // Handle the camera action
                 val hydra=Hydraaation(this)
@@ -162,5 +168,7 @@ class FrontScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         fragmentTransaction.replace(R.id.fragment,fragment)
         fragmentTransaction.commit()
     }
+
+
 
 }

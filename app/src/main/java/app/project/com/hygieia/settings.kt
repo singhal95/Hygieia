@@ -67,15 +67,14 @@ class settings (context: Context,mainScreen:OnTouchclick): Fragment() {
 
         val view=inflater.inflate(R.layout.settings, container, false)
         mprofileedit=view.findViewById<TextView>(R.id.profileedit)
+        mprofileedit.visibility=View.GONE
         mmygoalt=view.findViewById<TextView>(R.id.mygoal)
         database=context1.getSharedPreferences("Database", Context.MODE_PRIVATE)
         editor = database.edit()
         mresetpassword=view.findViewById<TextView>(R.id.resetpassword)
         mlogout=view.findViewById<TextView>(R.id.logout);
         mpdeleteaccount=view.findViewById<TextView>(R.id.deleteaccount);
-        mprofileedit.setOnClickListener {
 
-        }
 
         mresetpassword.setOnClickListener {
             FirebaseAuth.getInstance().sendPasswordResetEmail(database.getString("email","qwerty@gmail.com"))

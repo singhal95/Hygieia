@@ -73,6 +73,7 @@ class HomeFragment(context: Context,mainScreen: OnTouchAdd) : Fragment() {
         val date=day.toString()+"-"+(month+1).toString()+"-"+year
         var myRef = firebasedatabase.getReference("Users")
         var myref2=myRef.child(database.getString("userid","TEST")).child("calorie")
+        var myref3=myRef.child(database.getString("userid","TEST")).child("caloriesremaining").child(date)
         var breakfastvalue=myRef.child(database.getString("userid","TEST")).child("Meal").child(date).child("BreakFast")
         var LunchVal=myRef.child(database.getString("userid","TEST")).child("Meal").child(date).child("Lunch")
         var DinnerVal=myRef.child(database.getString("userid","TEST")).child("Meal").child(date).child("Dinner")
@@ -120,6 +121,22 @@ class HomeFragment(context: Context,mainScreen: OnTouchAdd) : Fragment() {
 
                     }
                 })
+        myref3.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+
+                val value = dataSnapshot.getValue(Float::class.java)
+                caloriesremaining.setText(value.toString())
+
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+
+
 
         myref2.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -127,7 +144,6 @@ class HomeFragment(context: Context,mainScreen: OnTouchAdd) : Fragment() {
 
                 val value = dataSnapshot.getValue(String::class.java)
                 Log.i("nitin123",value.toString())
-                caloriesremaining.setText(value)
                 editor.putString("calorie",value)
                 editor.commit()
 

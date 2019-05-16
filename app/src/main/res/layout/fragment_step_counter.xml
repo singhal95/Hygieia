@@ -7,6 +7,17 @@
     android:layout_height="match_parent"
    >
 
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
     <TextView
         android:id="@+id/stepsLbl"
         android:layout_width="wrap_content"
@@ -36,24 +47,74 @@
         app:layout_constraintTop_toBottomOf="@+id/stepsLbl" />
 
 
+            <Button
+                android:id="@+id/showchart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="ShowChart" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Monthly"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:padding="26dp"/>
+
+            <com.jjoe64.graphview.GraphView
+                android:layout_width="match_parent"
+                android:layout_height="200dip"
+                android:id="@+id/graph1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="2 Months"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:padding="26dp"/>
 
 
-        <com.jjoe64.graphview.GraphView
-            android:layout_width="match_parent"
-            android:layout_height="200dip"
-            android:id="@+id/graph" />
+            <com.jjoe64.graphview.GraphView
+                android:layout_width="match_parent"
+                android:layout_height="200dip"
+                android:id="@+id/graph2" />
 
-        <Button
-            android:id="@+id/showchart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="ShowChart" />
 
-    </FrameLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="6 Months"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:padding="26dp"/>
+
+            <com.jjoe64.graphview.GraphView
+                android:layout_width="match_parent"
+                android:layout_height="200dip"
+                android:id="@+id/graph3" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="yearly"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:padding="26dp"/>
+
+            <com.jjoe64.graphview.GraphView
+                android:layout_width="match_parent"
+                android:layout_height="200dip"
+                android:id="@+id/graph4" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

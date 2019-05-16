@@ -56,6 +56,9 @@ class StepCounter (context:Context): Fragment(), SensorEventListener {
     private  var k:Float = 0F
     private lateinit var button:Button
     private lateinit var graph: GraphView
+    private lateinit var graph1: GraphView
+    private lateinit var graph2: GraphView
+    private lateinit var graph3: GraphView
 
 
     init {
@@ -75,7 +78,10 @@ class StepCounter (context:Context): Fragment(), SensorEventListener {
         button=view.findViewById<Button>(R.id.showchart)
         sensorManager = context1.getSystemService(Context.SENSOR_SERVICE) as SensorManager
         firebasedatabase= FirebaseDatabase.getInstance()
-        graph=view.findViewById<GraphView>(R.id.graph)
+        graph=view.findViewById<GraphView>(R.id.graph1)
+        graph1=view.findViewById<GraphView>(R.id.graph2)
+        graph2=view.findViewById<GraphView>(R.id.graph3)
+        graph3=view.findViewById<GraphView>(R.id.graph4)
         database= context1.getSharedPreferences("Database", Context.MODE_PRIVATE)
         editor = database.edit()
      myRef = firebasedatabase.getReference("Users")
@@ -86,6 +92,7 @@ class StepCounter (context:Context): Fragment(), SensorEventListener {
             var myref2= myRef.child(database.getString("userid","TEST")).child("StepCounter")
             myref2.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    Log.i("nitinqwe","hello")
                    var datasnapshot1= dataSnapshot.children
                     for (data in datasnapshot1){
                         datalist.add(data.key.toString())
@@ -116,9 +123,8 @@ class StepCounter (context:Context): Fragment(), SensorEventListener {
                 i++
             }
 
-            graph.scrollX=10
-            graph.scrollBarSize=5
-            val series = BarGraphSeries(arrayOf
+
+            var series = LineGraphSeries(arrayOf
             (DataPoint(0.0, 1.0),
                     DataPoint(1.0, 5.0),
                     DataPoint(2.0, 3.0),
@@ -131,6 +137,17 @@ class StepCounter (context:Context): Fragment(), SensorEventListener {
                     DataPoint(9.0, 2.0),
                     DataPoint(10.0, 6.0)))
             graph.addSeries(series)
+
+
+
+            var k=countlist.get(countlist.size-1).toDouble()
+            val series2=LineGraphSeries(arrayOf(
+                    DataPoint(0.0,0.0),
+                    DataPoint(6.0, k),
+                    DataPoint(12.0,0.0)
+
+            ))
+            graph2.addSeries(series2)
 
 
         }
