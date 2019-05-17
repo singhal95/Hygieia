@@ -9,10 +9,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.RadioButton
-import android.widget.RadioGroup
+import android.widget.*
 import java.util.*
 import javax.xml.datatype.DatatypeConstants.MONTHS
 
@@ -82,8 +79,13 @@ class BasicDetailFragment(mainScreen: OnTouchGoal2,context: Context) : Fragment(
             editor.putString("birthday",stringbirthday)
             editor.putString("location",stringlocation)
             editor.putString("name",stringname)
-            editor.commit()
-            goal.touchgoal2()
+            if(stringbirthday.equals("") || stringlocation.equals("") || stringname.equals("")){
+                Toast.makeText(mcontext,"PLease Fill all the feilds and click on next button",Toast.LENGTH_SHORT).show()
+            }
+            else {
+                editor.commit()
+                goal.touchgoal2()
+            }
         }
         return view
     }

@@ -407,7 +407,7 @@ class SearchFoodFragment(context: Context, mainScreen: OnBarcodeLogoTouch,meal :
                         editor.commit()
                     }
                     else {
-                        totallunchcalorie = database.getString("breakfast", "0")
+                        totallunchcalorie = database.getString("lunch", "0")
                     }
                     var total=totallunchcalorie.toFloat()+ SearchList.get(position).Calories!!.toFloat()
                     myRefcalorie.child(database.getString("userid","TEST")).child("Meal").child(date).child("Lunch").setValue(total.toString()).addOnSuccessListener {

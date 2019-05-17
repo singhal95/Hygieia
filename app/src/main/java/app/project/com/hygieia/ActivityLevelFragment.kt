@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import kotlinx.android.synthetic.main.fragment_goal.*
 
 
 @SuppressLint("ValidFragment")
@@ -60,8 +61,21 @@ class ActivityLevelFragment(mainScreen: OnTouchGoal1,context: Context) : Fragmen
         radiobutton4=view.findViewById<RadioButton>(R.id.radioButton3)
         database= mcontext.getSharedPreferences("Database", Context.MODE_PRIVATE)
         editor = database.edit()
-
-
+        if(!radiobutton1.isChecked || !radiobutton2.isChecked || !radiobutton3.isChecked || !radiobutton4.isChecked ){
+            NEXT.isEnabled=false
+        }
+        radiobutton1.setOnClickListener{
+            NEXT.isEnabled=true
+        }
+        radiobutton2.setOnClickListener{
+            NEXT.isEnabled=true
+        }
+        radiobutton3.setOnClickListener{
+            NEXT.isEnabled=true
+        }
+        radiobutton4.setOnClickListener{
+            NEXT.isEnabled=true
+        }
         NEXT.setOnClickListener(){
             var id=radioGroup.checkedRadioButtonId
             if(id==radiobutton1.id){

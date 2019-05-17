@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 
 
 @SuppressLint("ValidFragment")
@@ -61,8 +62,13 @@ class PhysicalDetail(mainScreen: OnTouchGoal3,context:Context) : Fragment() {
             var stringweight=Weight.text.toString()
             editor.putString("height",stringheight)
             editor.putString("weight",stringweight)
-            editor.commit()
-            goal.touchgoal3()
+            if(stringheight.equals("") || stringweight.equals("")){
+                Toast.makeText(mcontext,"PLease Fill all the feilds and click on next button", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                editor.commit()
+                goal.touchgoal3()
+            }
         }
         return view
     }
